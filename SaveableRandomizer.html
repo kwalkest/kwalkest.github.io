@@ -1,0 +1,116 @@
+<html>
+	<head>
+		<title>The Garfield Saveable Randomizer</title>
+		<!-- by Kevin Walker -->
+		<style type="text/css">
+			td.comic {
+				overflow: hidden;
+				text-align: left;
+				vertical-align: top;
+				max-height: 175px;
+				max-width: 194px;
+			}
+			img {
+				position: absolute;
+			}
+		</style>
+		<script type="text/javascript" src="SaveableRandomizer.js"></script>
+		<script type="text/javascript">
+			
+			function init()
+			{
+				// load and lock panels saved in location.search
+				restore();
+				
+				// enable and disable input elements according to whether they can do anything
+				updateInterface();
+				
+				// randomize the panels that weren't loaded and locked by restore()
+				randomizeUnlockedPanels();
+			}
+			
+			window.onload = init;
+		</script>
+	</head>
+	<body>
+		<font size="-1">This is a significantly modified and upgraded version of the Eagle-Fire Garfield Randomizer:</font>
+			<font size="-1"><li>the randomness is distributed better,</li>
+			<li>you can place your current comic into the URL and bookmark it,</li>
+			<li>and you can even even send your current comic to any friends you may have!</li>
+			<li>This is from way back, dang</li></font>
+		<b><font size="-1">ENJOYMENT!</font></b>
+		</font>
+		<br>
+		<br>
+		<table>
+			<tr>
+				<td style="border-style:solid; border-width:2px; border-color:black" class="comic" width=198 height=176 id=cell1>
+					&nbsp;
+				</td>
+				<td style="border-style:solid; border-width:2px; border-color:white" class="comic" width=198 height=176 id=cell2>
+					&nbsp;
+				</td>
+				<td style="border-style:solid; border-width:2px; border-color:black" class="comic" width=198 height=176 id=cell3>
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td class="comic">
+					<label><input type=checkbox id=lockbox1 onclick="updateInterface()">Lock&nbsp;</label>
+				</td>
+				<td class="comic">
+					<label><input type=checkbox id=lockbox2 onclick="updateInterface()">Lock&nbsp;</label>
+				</td>
+				<td class="comic">
+					<label><input type=checkbox id=lockbox3 onclick="updateInterface()">Lock&nbsp;</label>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<table style="border-collapse:collapse">
+			<tr>
+				<td align="right">
+					<input type="button" value="RANDOMIZE" id=randomize onclick="randomizeUnlockedPanels()">
+				</td>
+				<td style="border-right: double 3px gray" rowspan="2"></td>
+				<td style="border-left: double 3px gray" rowspan="2"></td>
+				<td>
+					<input type="button" value="save locked panels to URL" id=saveLocked onclick="saveToSearch()">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<input type="button" value="lock all panels" id=lockAll onclick="lockBoxes()">
+				</td>
+				<td>
+					<input type="button" value="unlock all panels" id=unlockAll onclick="unlockBoxes()">
+				</td>
+			</tr>
+		</table>
+		<br>
+		<table style="border-collapse:collapse">
+			<tr>
+				<td align="right"><font color="#707070">send:</font></td>
+				<td>
+					<input type="text" readonly style="font:10pt monospace; color:#484848;" placeholder="panel_1" id="currentPanel1" size="16">
+					<input type="text" readonly style="font:9pt monospace; color:#484848;" placeholder="panel_2" id="currentPanel2" size="16">
+					<input type="text" readonly style="font:9pt monospace; color:#484848;" placeholder="panel_3" id="currentPanel3" size="16">
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:right; vertical-align:top">
+					<font style="vertical-align:top" color="#707070">to:</font>
+				</td>
+				<td>
+					<font size="-1"><textarea placeholder="email addresses" id="addresses" rows="4" cols="32"></textarea></font>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="button" value="send locked comic!" id="sendButton" onclick="emailLocked()">
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
